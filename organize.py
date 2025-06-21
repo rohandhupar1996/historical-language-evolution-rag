@@ -1,13 +1,13 @@
 # ==========================================
-# FILE: main.py
+# FILE: organize.py (Updated)
 # ==========================================
 """Main entry point for GerManC corpus organizer."""
 
 import argparse
 from pathlib import Path
 
-from src.organizer import GerManCOrganizer
-from utils.utils import validate_paths, print_summary
+from germanc_organizer import GerManCOrganizer
+from germanc_organizer.utils import validate_paths, print_summary
 
 
 def main():
