@@ -5,7 +5,7 @@
 
 import argparse
 from pathlib import Path
-from prepare_pipeline import GerManCPrepareProcessor
+from src.prepare_pipeline import GerManCPrepareProcessor
 
 
 def main():
