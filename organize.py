@@ -12,10 +12,13 @@ from utils.utils import validate_paths, print_summary
 
 def main():
     """Main function with CLI interface."""
+    print(1)
+
     parser = argparse.ArgumentParser(description="Organize GerManC corpus files")
     parser.add_argument("source_dir", help="Source directory containing XML files")
     parser.add_argument("output_dir", help="Output directory for organized files")
-    
+    print(1)
+
     args = parser.parse_args()
     
     # Validate paths
@@ -23,6 +26,7 @@ def main():
         return 1
     
     # Create organizer and run
+    print(1)
     organizer = GerManCOrganizer(args.source_dir, args.output_dir)
     stats, processed, errors = organizer.organize_files()
     

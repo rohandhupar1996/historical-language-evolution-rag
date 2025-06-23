@@ -4,7 +4,7 @@
 """Prepare Pipeline Package - Phase 3 Pre-ACCESS."""
 
 from .processor import GerManCPrepareProcessor
-from .chunk_creator import ChunkCreator
+from .config_creator import ChunkCreator
 from .database_builder import DatabaseBuilder
 from .feature_extractor import FeatureExtractor
 from .statistics_calculator import StatisticsCalculator

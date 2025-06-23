@@ -9,12 +9,12 @@ from pathlib import Path
 from typing import List, Dict, Any, Tuple
 from tqdm import tqdm
 
-from .chunk_creator import ChunkCreator
-from .feature_extractor import FeatureExtractor
-from .database_builder import DatabaseBuilder
-from .statistics_calculator import StatisticsCalculator
-from .utils import setup_logging, save_json, print_phase_summary
-from .config import DEFAULT_CHUNK_SIZE
+from src.prepare_pipeline.config_creator import ChunkCreator
+from src.prepare_pipeline.feature_extractor import FeatureExtractor
+from src.prepare_pipeline.database_builder import DatabaseBuilder
+from src.prepare_pipeline.statistics_calculator import StatisticsCalculator
+from src.prepare_pipeline.utils import setup_logging, save_json, print_phase_summary
+from src.prepare_pipeline.config import DEFAULT_CHUNK_SIZE
 
 
 class GerManCPrepareProcessor:
