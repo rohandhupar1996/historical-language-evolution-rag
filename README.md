@@ -401,7 +401,7 @@ If you use this system in your research, please cite:
 ```bibtex
 @software{german_rag_system,
   title={Historical German Language Evolution RAG System},
-  author={Your Name},
+  author={Rohan Dhupar},
   year={2024},
   url={https://github.com/yourusername/historical-language-evolution-rag},
   note={A comprehensive system for analyzing German language evolution using RAG}
