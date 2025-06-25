@@ -5,8 +5,8 @@
 
 import argparse
 from pathlib import Path
-from rag_system import GermanRAGPipeline
-from rag_system.config import DEFAULT_DB_CONFIG
+from src.rag_system import GermanRAGPipeline
+from src.rag_system.config import DEFAULT_DB_CONFIG
 
 
 def main():

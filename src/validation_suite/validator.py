@@ -9,7 +9,7 @@ from .data_loader import DataLoader
 from .temporal_validator import TemporalValidator
 from .spelling_validator import SpellingValidator
 from .linguistic_validator import LinguisticValidator
-from .quality_validator import QualityValidator
+from .qualitty_validator import QualityValidator
 from .rag_readiness_checker import RAGReadinessChecker
 from .query_tester import QueryTester
 from .report_generator import ReportGenerator
