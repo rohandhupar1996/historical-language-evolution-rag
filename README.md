@@ -64,34 +64,43 @@ The result is a production-ready RAG system that transforms raw historical texts
 
 ```
 historical-language-evolution-rag/
-├── 📊 Data Pipeline
-│   ├── germanc_organizer/          # Phase 1: File organization by period/genre
-│   ├── gate_preprocessor/          # Phase 2: NLP feature extraction
-│   ├── validation_suite/           # Phase 3: Quality assurance
-│   └── prepare_pipeline/           # Phase 4: Data chunking & preparation
+├── 📂 src/                        # Source code directory
+│   ├── 📊 Data Pipeline Modules
+│   │   ├── germanc_organizer/     # Phase 1: File organization by period/genre
+│   │   ├── gate_preprocessor/     # Phase 2: NLP feature extraction  
+│   │   ├── validation_suite/      # Phase 3: Quality assurance
+│   │   └── prepare_pipeline/      # Phase 4: Data chunking & preparation
+│   │
+│   ├── 🗄️ Backend Systems
+│   │   ├── access_pipeline/       # Phase 5: PostgreSQL setup & REST API
+│   │   └── rag_system/           # Phase 6: Vector DB & semantic search
+│   │
+│   └── 📝 Execution Scripts
+│       ├── organize.py           # Execute Phase 1
+│       ├── preprocess.py         # Execute Phase 2
+│       ├── validate.py           # Execute Phase 3
+│       ├── prepare.py            # Execute Phase 4
+│       ├── access.py             # Execute Phase 5
+│       └── rag.py                # Execute Phase 6
 │
-├── 🗄️ Backend Systems  
-│   ├── access_pipeline/            # Phase 5: PostgreSQL setup & REST API
-│   └── rag_system/                 # Phase 6: Vector DB & semantic search
+├── 📂 data/                       # Data storage
+│   ├── raw_corpus/               # Original GerManC files
+│   ├── organized_corpus/         # Phase 1 output
+│   ├── preprocessed/             # Phase 2 output  
+│   └── prepared/                 # Phase 4 output
 │
-├── 📝 Execution Scripts
-│   ├── organize.py                 # Execute Phase 1
-│   ├── preprocess.py              # Execute Phase 2  
-│   ├── validate.py                # Execute Phase 3
-│   ├── prepare.py                 # Execute Phase 4
-│   ├── access.py                  # Execute Phase 5
-│   └── rag.py                     # Execute Phase 6
+├── 📂 german_corpus_vectordb/     # ChromaDB vector storage
+├── 📂 docs/                       # Documentation
+├── 📂 config/                     # Configuration files
+├── 📂 tests/                      # Unit and integration tests
+├── 📂 utils/                      # Utility scripts
+├── 📂 Notebook/                   # Jupyter analysis notebooks
 │
-├── 📚 Documentation & Config
-│   ├── docs/                      # Comprehensive documentation
-│   ├── config/                    # Configuration files
-│   ├── notebooks/                 # Jupyter analysis notebooks
-│   └── tests/                     # Unit and integration tests
-│
-└── 🔧 Development
+└── 🔧 Project Files
     ├── requirements.txt           # Python dependencies
     ├── pyproject.toml            # Project configuration
-    └── README.md                 # This file
+    ├── setup.py                  # Package setup
+    └── README.md                 # This documentation
 ```
 
 ## 🚀 Quick Start
@@ -144,45 +153,51 @@ mkdir data/raw_corpus
 
 ### Phase 1: File Organization
 ```bash
-python organize.py data/raw_corpus data/organized_corpus
+cd src
+python organize.py ../data/raw_corpus ../data/organized_corpus
 ```
 **What it does:** Sorts historical texts by time period and genre, validates file structure, creates metadata catalogs.
 
 ### Phase 2: Linguistic Preprocessing  
 ```bash
-python preprocess.py data/organized_corpus data/preprocessed
+cd src
+python preprocess.py ../data/organized_corpus ../data/preprocessed
 ```
 **What it does:** Runs GATE NLP pipeline to extract linguistic features, normalizes historical spelling, performs POS tagging and tokenization.
 
 ### Phase 3: Quality Validation
 ```bash
-python validate.py data/preprocessed
+cd src
+python validate.py ../data/preprocessed
 ```
 **What it does:** Validates preprocessing quality, checks feature extraction completeness, generates quality reports.
 
 ### Phase 4: Data Preparation
 ```bash
-python prepare.py data/preprocessed data/prepared
+cd src
+python prepare.py ../data/preprocessed ../data/prepared
 ```
 **What it does:** Creates text chunks optimized for retrieval, builds word frequency tables, prepares database import files.
 
 ### Phase 5: Database & API Setup
 ```bash
-python access.py data/prepared --start-api
+cd src
+python access.py ../data/prepared --start-api
 ```
 **What it does:** Imports data into PostgreSQL, creates optimized indexes, starts REST API server for data access.
 
 ### Phase 6: RAG System Deployment
 ```bash
+cd src
 python rag.py --test --limit 1000
 ```
 **What it does:** Creates vector embeddings, sets up ChromaDB, enables semantic search and question-answering.
 
-## 🔧 Configuration
+### Configuration
 
 ### Database Configuration
 ```python
-# access_pipeline/config.py
+# src/access_pipeline/config.py
 DEFAULT_DB_CONFIG = {
     'host': 'localhost',
     'port': 5432,
@@ -194,7 +209,7 @@ DEFAULT_DB_CONFIG = {
 
 ### Embedding Model Configuration
 ```python
-# rag_system/config.py
+# src/rag_system/config.py
 EMBEDDING_MODEL = 'sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2'
 DEFAULT_VECTOR_DB_PATH = "./chroma_db"
 ```
@@ -203,6 +218,8 @@ DEFAULT_VECTOR_DB_PATH = "./chroma_db"
 
 ### Semantic Search
 ```python
+import sys
+sys.path.append('src')
 from rag_system import GermanRAGPipeline
 
 rag = GermanRAGPipeline(db_config, "./vectordb")
@@ -234,7 +251,8 @@ for period, data in evolution['periods'].items():
 ### REST API Usage
 ```bash
 # Start API server
-python access.py data/prepared --start-api
+cd src
+python access.py ../data/prepared --start-api
 
 # Query endpoints
 curl "http://localhost:8000/search/mittelalterliche%20sprache?period=1350-1650"
@@ -260,8 +278,9 @@ curl "http://localhost:8000/evolution/recht/1350-1650/1650-1800"
 # Run full test suite
 python -m pytest tests/
 
-# Test individual phases
-python validate.py data/preprocessed --test-mode
+# Test individual phases (from src directory)
+cd src
+python validate.py ../data/preprocessed --test-mode
 python rag.py --test --limit 100
 
 # Integration tests
@@ -382,8 +401,8 @@ If you use this system in your research, please cite:
 ```bibtex
 @software{german_rag_system,
   title={Historical German Language Evolution RAG System},
-  author={Rohan Dhupar},
-  year={2025},
+  author={Your Name},
+  year={2024},
   url={https://github.com/yourusername/historical-language-evolution-rag},
   note={A comprehensive system for analyzing German language evolution using RAG}
 }
