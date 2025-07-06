@@ -1,0 +1,133 @@
+{
+  "health": {
+    "status": "success",
+    "data": {
+      "status": "healthy",
+      "is_initialized": true,
+      "error": null
+    }
+  },
+  "semantic_search": {
+    "status": "tested",
+    "results": [
+      {
+        "query": "deutsche sprache",
+        "error": "Status 500"
+      },
+      {
+        "query": "religious texts medieval",
+        "error": "Status 500"
+      },
+      {
+        "query": "archaic spelling patterns",
+        "error": "Status 500"
+      }
+    ]
+  },
+  "question_answering": {
+    "status": "tested",
+    "results": [
+      {
+        "question": "How did German language evolve?",
+        "answer_length": 646,
+        "sources": 5
+      },
+      {
+        "question": "What are common archaic spelling pattern",
+        "answer_length": 646,
+        "sources": 5
+      },
+      {
+        "question": "Describe religious language in historica",
+        "answer_length": 646,
+        "sources": 5
+      }
+    ]
+  },
+  "language_evolution": {
+    "status": "tested",
+    "results": [
+      {
+        "word": "deutsch",
+        "error": "Status 500"
+      },
+      {
+        "word": "gott",
+        "error": "Status 500"
+      },
+      {
+        "word": "recht",
+        "error": "Status 500"
+      }
+    ]
+  },
+  "statistics": {
+    "status": "success",
+    "total_chunks": 3607,
+    "total_embeddings": 1000,
+    "data": {
+      "database_stats": {
+        "chunks": {
+          "total_chunks": 3607,
+          "avg_word_count": 81.95065151095093,
+          "earliest_period": "1650-1700",
+          "latest_period": "1750-1800",
+          "period_count": 3,
+          "genre_count": 7
+        },
+        "period_distribution": [
+          {
+            "period": "1650-1700",
+            "chunk_count": 1305
+          },
+          {
+            "period": "1700-1750",
+            "chunk_count": 1249
+          },
+          {
+            "period": "1750-1800",
+            "chunk_count": 1053
+          }
+        ],
+        "genre_distribution": [
+          {
+            "genre": "Legal",
+            "chunk_count": 764
+          },
+          {
+            "genre": "Scientific",
+            "chunk_count": 596
+          },
+          {
+            "genre": "Narrative",
+            "chunk_count": 562
+          },
+          {
+            "genre": "Sermons",
+            "chunk_count": 562
+          },
+          {
+            "genre": "Humanities",
+            "chunk_count": 529
+          },
+          {
+            "genre": "Newspapers",
+            "chunk_count": 436
+          },
+          {
+            "genre": "Drama",
+            "chunk_count": 158
+          }
+        ]
+      },
+      "vector_stats": {
+        "total_embeddings": 1000,
+        "collection_name": "german_corpus_chunks"
+      },
+      "model_info": {
+        "embedding_model": "paraphrase-multilingual-MiniLM-L12-v2",
+        "vector_db_path": "german_corpus_vectordb"
+      }
+    }
+  }
+}
