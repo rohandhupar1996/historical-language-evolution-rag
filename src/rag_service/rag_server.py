@@ -52,16 +52,31 @@ class RAGService:
                 'password': '1996'
             })
             
-            # Initialize pipeline
-            self.rag_pipeline = GermanRAGPipeline(
-                db_config, 
-                "./german_corpus_vectordb"
-            )
+            # Find vector database path
+            import os
+            vector_db_path = os.getenv('VECTOR_DB_PATH')
             
-            # Check if vector DB exists
-            vector_db_path = Path("./german_corpus_vectordb")
-            if not vector_db_path.exists():
-                raise Exception("Vector database not found. Please run: python rag.py --test")
+            if not vector_db_path:
+                possible_paths = [
+                    "./german_corpus_vectordb",
+                    "/Users/rohan/Downloads/historical-language-evolution-rag/german_corpus_vectordb",
+                    "../german_corpus_vectordb",
+                    os.path.expanduser("~/Downloads/historical-language-evolution-rag/german_corpus_vectordb")
+                ]
+                
+                for path in possible_paths:
+                    if Path(path).exists():
+                        vector_db_path = path
+                        logger.info(f"📦 Found vector database at: {path}")
+                        break
+            else:
+                logger.info(f"📦 Using vector database from environment: {vector_db_path}")
+            
+            if not vector_db_path or not Path(vector_db_path).exists():
+                raise Exception(f"Vector database not found. Checked: {possible_paths if not vector_db_path else [vector_db_path]}")
+            
+            # Initialize pipeline
+            self.rag_pipeline = GermanRAGPipeline(db_config, vector_db_path)
             
             # Setup QA system
             self.rag_pipeline.setup_qa_system("simple")
