@@ -1,7 +1,7 @@
 # ==========================================
-# FILE: rag_system/pipeline.py
+# FILE: src/rag_system/pipeline.py (FIXED)
 # ==========================================
-"""Main RAG pipeline class."""
+"""Main RAG pipeline class - FIXED to respect LLM provider choice."""
 
 import pandas as pd
 from sqlalchemy import create_engine, text
@@ -126,14 +126,27 @@ class GermanRAGPipeline:
                 raise
     
     def setup_qa_system(self, llm_provider: str = "simple"):
-        """Setup QA system components."""
+        """Setup QA system components - FIXED to respect provider choice."""
         print(f"🔗 Setting up QA system with {llm_provider} provider...")
         self.qa_manager.setup_vectorstore()
         
-        # For testing, stick to simple mode to avoid LLM issues
-        if llm_provider != "simple":
-            print("⚠️  For stability, using simple retrieval mode instead of LLM generation")
-            llm_provider = "simple"
+        # REMOVED: The forced simple mode override
+        # Now respects the user's actual choice
+        
+        if llm_provider == "openai":
+            # Check for OpenAI API key
+            import os
+            if not os.getenv("OPENAI_API_KEY"):
+                print("❌ OPENAI_API_KEY not found in environment variables!")
+                print("💡 Set it with: export OPENAI_API_KEY='your-key-here'")
+                print("🔄 Falling back to simple mode...")
+                llm_provider = "simple"
+            else:
+                print("✅ OpenAI API key found, initializing GPT model...")
+        elif llm_provider == "huggingface":
+            print("🤗 Initializing HuggingFace model...")
+        else:
+            print("📝 Using simple retrieval mode (no LLM generation)")
             
         self.qa_manager.setup_qa_chain(llm_provider)
     

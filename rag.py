@@ -15,7 +15,7 @@ def main():
     parser.add_argument("--vector-db-path", default="./german_corpus_vectordb", help="Vector database path")
     parser.add_argument("--limit", type=int, help="Limit number of chunks for testing")
     parser.add_argument("--llm-provider", choices=['simple', 'openai', 'huggingface'], 
-                       default='simple', help="LLM provider")
+                       default='openai', help="LLM provider")
     parser.add_argument("--test", action="store_true", help="Run system tests")
     
     args = parser.parse_args()
@@ -32,6 +32,7 @@ def main():
         rag.create_embeddings(chunks_df)
         
         # Setup QA system
+        print(args.llm_provider)
         rag.setup_qa_system(args.llm_provider)
         
         # Run tests if requested
